@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Iniciar sesión · AgroRed S.A.S.</title>
+  <meta name="description" content="AgroRed S.A.S. · Gestión de productos, clientes y pedidos">
+  <link rel="icon" href="assets/img/logo.svg" type="image/svg+xml">
+  <!-- Aplica el tema guardado antes de pintar (evita el parpadeo claro/oscuro) -->
+  <script>try { document.documentElement.dataset.tema = localStorage.getItem('agrored.tema') || 'claro'; } catch (e) {}</script>
+  <link rel="stylesheet" href="assets/css/variables.css">
+  <link rel="stylesheet" href="assets/css/base.css">
+  <link rel="stylesheet" href="assets/css/componentes.css">
+  <link rel="stylesheet" href="assets/css/login.css">
+  <script type="module" src="js/pages/login.js"></script>
+</head>
+<!-- Inicio de sesión · Grupo -->
+<body class="pagina-acceso">
+  <main class="acceso">
+    <section class="acceso__marca" aria-hidden="true">
+      <div class="acceso__logo"><img src="assets/img/logo.svg" alt="" width="44" height="44"><span>AgroRed <small>S.A.S.</small></span></div>
+      <div class="acceso__mensaje">
+        <h2>Del campo al cliente, en un solo lugar.</h2>
+        <p>Gestione el catálogo de productos, los clientes y los pedidos de AgroRed desde cualquier dispositivo.</p>
+        <ul class="acceso__puntos">
+          <li><span></span>Pedidos con cliente y producto en tiempo real</li>
+          <li><span></span>Permisos según el rol de cada persona</li>
+          <li><span></span>Centros de distribución en Bogotá y Cali</li>
+        </ul>
+      </div>
+      <p class="acceso__pie">Redes y Servicios Multimedia · UAO · Módulo 3</p>
+    </section>
+    <section class="acceso__panel">
+      <div class="acceso__tarjeta">
+        <img class="acceso__logo-movil" src="assets/img/logo.svg" alt="AgroRed" width="48" height="48">
+        <h1>Iniciar sesión</h1>
+        <p class="acceso__sub">Bienvenido a la plataforma de gestión de AgroRed S.A.S.</p>
+        <div class="alerta alerta--error" id="acceso-error" role="alert" hidden></div>
+        <div id="acceso"><div class="esqueleto esqueleto--bloque"></div></div>
+      </div>
+    </section>
+  </main>
+</body>
+</html>

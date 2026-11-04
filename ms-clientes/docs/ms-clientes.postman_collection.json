@@ -1,0 +1,961 @@
+{
+  "info": {
+    "_postman_id": "dd062656-144f-4acd-bde3-bc18a78134e8",
+    "name": "ms-clientes",
+    "description": "Taller 2 · ms-clientes (AgroRed S.A.S.). Ejecute primero la carpeta 0 (requiere ms-usuarios en el puerto 3001). Las variables baseUrl, usuariosUrl y las credenciales están en la pestaña Variables de la colección.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{token_admin}}",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:3003"
+    },
+    {
+      "key": "usuariosUrl",
+      "value": "http://localhost:3001"
+    },
+    {
+      "key": "email_admin",
+      "value": "admin@empresa.com"
+    },
+    {
+      "key": "password_admin",
+      "value": "Admin2026*"
+    },
+    {
+      "key": "email_comercial",
+      "value": "comercial@agrored.com"
+    },
+    {
+      "key": "email_produccion",
+      "value": "produccion@agrored.com"
+    },
+    {
+      "key": "password_prueba",
+      "value": "Prueba2026*"
+    },
+    {
+      "key": "token_admin",
+      "value": ""
+    },
+    {
+      "key": "token_comercial",
+      "value": ""
+    },
+    {
+      "key": "token_produccion",
+      "value": ""
+    },
+    {
+      "key": "idCreado",
+      "value": ""
+    },
+    {
+      "key": "idRol",
+      "value": ""
+    },
+    {
+      "key": "idRel",
+      "value": ""
+    },
+    {
+      "key": "nit_creado",
+      "value": ""
+    }
+  ],
+  "item": [
+    {
+      "name": "0 · Iniciar sesión (ejecutar primero)",
+      "description": "Requiere ms-usuarios corriendo en el puerto 3001. Guarda los tokens de administrador, comercial y produccion en variables de la colección.",
+      "item": [
+        {
+          "name": "Login administrador",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Código 200', () => pm.response.to.have.status(200));",
+                  "pm.test('Devuelve token', () => pm.expect(pm.response.json().token).to.be.a('string'));",
+                  "if (pm.response.code === 200) pm.collectionVariables.set('token_admin', pm.response.json().token);"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": "{{usuariosUrl}}/usuarios/login",
+            "description": "Inicia sesión como administrador y guarda el token en la variable token_admin.",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"{{email_admin}}\",\n  \"password\": \"{{password_admin}}\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "auth": {
+              "type": "noauth"
+            }
+          }
+        },
+        {
+          "name": "Crear usuario comercial (admin)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Código 201 o 409', () => pm.expect([201, 409]).to.include(pm.response.code));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": "{{usuariosUrl}}/usuarios",
+            "description": "El administrador crea el usuario de prueba de este rol. 201 la primera vez; 409 si ya existe. Ambos sirven.",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"nombre\": \"Comercial de Prueba\",\n  \"email\": \"{{email_comercial}}\",\n  \"rol\": \"comercial\",\n  \"password\": \"{{password_prueba}}\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{token_admin}}",
+                  "type": "string"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Crear usuario produccion (admin)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Código 201 o 409', () => pm.expect([201, 409]).to.include(pm.response.code));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": "{{usuariosUrl}}/usuarios",
+            "description": "El administrador crea el usuario de prueba de este rol. 201 la primera vez; 409 si ya existe. Ambos sirven.",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"nombre\": \"Produccion de Prueba\",\n  \"email\": \"{{email_produccion}}\",\n  \"rol\": \"produccion\",\n  \"password\": \"{{password_prueba}}\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{token_admin}}",
+                  "type": "string"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Login comercial",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Código 200', () => pm.response.to.have.status(200));",
+                  "pm.test('Devuelve token', () => pm.expect(pm.response.json().token).to.be.a('string'));",
+                  "if (pm.response.code === 200) pm.collectionVariables.set('token_comercial', pm.response.json().token);"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": "{{usuariosUrl}}/usuarios/login",
+            "description": "Inicia sesión como comercial y guarda el token en la variable token_comercial.",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"{{email_comercial}}\",\n  \"password\": \"{{password_prueba}}\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "auth": {
+              "type": "noauth"
+            }
+          }
+        },
+        {
+          "name": "Login produccion",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Código 200', () => pm.response.to.have.status(200));",
+                  "pm.test('Devuelve token', () => pm.expect(pm.response.json().token).to.be.a('string'));",
+                  "if (pm.response.code === 200) pm.collectionVariables.set('token_produccion', pm.response.json().token);"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": "{{usuariosUrl}}/usuarios/login",
+            "description": "Inicia sesión como produccion y guarda el token en la variable token_produccion.",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"{{email_produccion}}\",\n  \"password\": \"{{password_prueba}}\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "auth": {
+              "type": "noauth"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "1 · CRUD completo (casos 1 a 13)",
+      "description": "Casos de la Parte 2 del taller.",
+      "item": [
+        {
+          "name": "1. Listar todos",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Código 200', () => pm.response.to.have.status(200));",
+                  "pm.test('Responde un arreglo', () => pm.expect(pm.response.json()).to.be.an('array'));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "{{baseUrl}}/clientes",
+            "description": "Esperado: 200 con un arreglo."
+          }
+        },
+        {
+          "name": "2. Filtrar por tipo",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Código 200', () => pm.response.to.have.status(200));",
+                  "pm.test('Responde un arreglo', () => pm.expect(pm.response.json()).to.be.an('array'));",
+                  "pm.test('Todos cumplen el filtro', () => pm.response.json().forEach(r => pm.expect(r.tipo).to.eql('comercio')));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "{{baseUrl}}/clientes?tipo=comercio",
+            "description": "Filtro por atributo. Esperado: 200, todos con tipo = comercio."
+          }
+        },
+        {
+          "name": "3. Consultar por lotes ?ids=1,2",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Código 200', () => pm.response.to.have.status(200));",
+                  "pm.test('Trae solo los ids pedidos', () => pm.expect(pm.response.json().map(r => r.id)).to.eql([1, 2]));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "{{baseUrl}}/clientes?ids=1,2",
+            "description": "Lo usa ms-pedidos para componer. Esperado: 200 con exactamente los registros 1 y 2."
+          }
+        },
+        {
+          "name": "4. Obtener un registro existente",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Código 200', () => pm.response.to.have.status(200));",
+                  "pm.test('Es el 1', () => pm.expect(pm.response.json().id).to.eql(1));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "{{baseUrl}}/clientes/1",
+            "description": "Esperado: 200."
+          }
+        },
+        {
+          "name": "5. Obtener un id que no existe",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Código 404', () => pm.response.to.have.status(404));",
+                  "pm.test('Trae mensaje de error', () => pm.expect(pm.response.json()).to.have.property('error'));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "{{baseUrl}}/clientes/99999",
+            "description": "Esperado: 404."
+          }
+        },
+        {
+          "name": "6. Obtener con id no numérico",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Código 400', () => pm.response.to.have.status(400));",
+                  "pm.test('Trae mensaje de error', () => pm.expect(pm.response.json()).to.have.property('error'));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "{{baseUrl}}/clientes/abc",
+            "description": "Esperado: 400."
+          }
+        },
+        {
+          "name": "7. Crear con datos válidos",
+          "event": [
+            {
+              "listen": "prerequest",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.variables.set('nit_nuevo', String(900000000 + Math.floor(Math.random() * 99999999)) + '-' + Math.floor(Math.random() * 10));"
+                ]
+              }
+            },
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Código 201', () => pm.response.to.have.status(201));",
+                  "pm.test('Cabecera Location', () => pm.response.to.have.header('Location'));",
+                  "if (pm.response.code === 201) pm.collectionVariables.set('idCreado', pm.response.json().id);",
+                  "if (pm.response.code === 201) pm.collectionVariables.set('nit_creado', pm.response.json().nit);"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": "{{baseUrl}}/clientes",
+            "description": "Esperado: 201 + cabecera Location. Guarda el id en idCreado.",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"nombre\": \"Frutas del Pacífico\",\n  \"nit\": \"{{nit_nuevo}}\",\n  \"ciudad\": \"Buenaventura\",\n  \"telefono\": \"3154442211\",\n  \"tipo\": \"distribuidor\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "8. Crear sin un atributo obligatorio",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Código 400', () => pm.response.to.have.status(400));",
+                  "pm.test('Lista detalles', () => pm.expect(pm.response.json().detalles).to.be.an('array').that.is.not.empty);"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": "{{baseUrl}}/clientes",
+            "description": "Faltan nit y telefono. Esperado: 400.",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"nombre\": \"Sin NIT\",\n  \"ciudad\": \"Cali\",\n  \"tipo\": \"comercio\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "9. Crear violando la regla: NIT repetido",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Código 409', () => pm.response.to.have.status(409));",
+                  "pm.test('Trae mensaje de error', () => pm.expect(pm.response.json()).to.have.property('error'));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": "{{baseUrl}}/clientes",
+            "description": "El NIT 900123456-7 ya es de Distribuidora El Valle. Esperado: 409.",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"nombre\": \"Repetido S.A.S.\",\n  \"nit\": \"900123456-7\",\n  \"ciudad\": \"Cali\",\n  \"telefono\": \"6020000000\",\n  \"tipo\": \"comercio\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "10. Actualizar un registro existente",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Código 200', () => pm.response.to.have.status(200));",
+                  "pm.test('Se actualizó tipo', () => pm.expect(pm.response.json().tipo).to.eql('comercio'));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": "{{baseUrl}}/clientes/{{idCreado}}",
+            "description": "PUT reemplaza el registro completo. Esperado: 200.",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"nombre\": \"Frutas del Pacífico S.A.S.\",\n  \"nit\": \"{{nit_creado}}\",\n  \"ciudad\": \"Cali\",\n  \"telefono\": \"6024445566\",\n  \"tipo\": \"comercio\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "11. Actualizar un id que no existe",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Código 404', () => pm.response.to.have.status(404));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": "{{baseUrl}}/clientes/99999",
+            "description": "Esperado: 404.",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"nombre\": \"Frutas del Pacífico S.A.S.\",\n  \"nit\": \"{{nit_creado}}\",\n  \"ciudad\": \"Cali\",\n  \"telefono\": \"6024445566\",\n  \"tipo\": \"comercio\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "12. Eliminar un registro existente",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Código 204', () => pm.response.to.have.status(204));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": "{{baseUrl}}/clientes/{{idCreado}}",
+            "description": "Esperado: 204 sin cuerpo."
+          }
+        },
+        {
+          "name": "13. Eliminar el mismo registro otra vez",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Código 404', () => pm.response.to.have.status(404));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": "{{baseUrl}}/clientes/{{idCreado}}",
+            "description": "Ya no existe. Esperado: 404."
+          }
+        }
+      ]
+    },
+    {
+      "name": "2 · Seguridad (casos 14 a 18)",
+      "description": "Casos de la Parte 5 del taller.",
+      "item": [
+        {
+          "name": "14. Petición sin token",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Código 401', () => pm.response.to.have.status(401));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "{{baseUrl}}/clientes",
+            "description": "Esperado: 401.",
+            "auth": {
+              "type": "noauth"
+            }
+          }
+        },
+        {
+          "name": "15. Petición con un token inventado",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Código 401', () => pm.response.to.have.status(401));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "{{baseUrl}}/clientes",
+            "description": "La firma no coincide con JWT_SECRET. Esperado: 401.",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "eyJhbGciOiJIUzI1NiJ9.eyJyb2wiOiJhZG1pbmlzdHJhZG9yIn0.firma-inventada",
+                  "type": "string"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "16. GET con el token de produccion (solo consulta)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Código 200', () => pm.response.to.have.status(200));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "{{baseUrl}}/clientes",
+            "description": "Cualquier rol autenticado consulta. Esperado: 200.",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{token_produccion}}",
+                  "type": "string"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "17. POST con el token de produccion (sin permiso)",
+          "event": [
+            {
+              "listen": "prerequest",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.variables.set('nit_nuevo', String(900000000 + Math.floor(Math.random() * 99999999)) + '-' + Math.floor(Math.random() * 10));"
+                ]
+              }
+            },
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Código 403', () => pm.response.to.have.status(403));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": "{{baseUrl}}/clientes",
+            "description": "Esperado: 403.",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"nombre\": \"Frutas del Pacífico\",\n  \"nit\": \"{{nit_nuevo}}\",\n  \"ciudad\": \"Buenaventura\",\n  \"telefono\": \"3154442211\",\n  \"tipo\": \"distribuidor\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{token_produccion}}",
+                  "type": "string"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "18. POST con el token de comercial (con permiso)",
+          "event": [
+            {
+              "listen": "prerequest",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.variables.set('nit_nuevo', String(900000000 + Math.floor(Math.random() * 99999999)) + '-' + Math.floor(Math.random() * 10));"
+                ]
+              }
+            },
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Código 201', () => pm.response.to.have.status(201));",
+                  "if (pm.response.code === 201) pm.collectionVariables.set('idRol', pm.response.json().id);"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": "{{baseUrl}}/clientes",
+            "description": "Esperado: 201.",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"nombre\": \"Frutas del Pacífico\",\n  \"nit\": \"{{nit_nuevo}}\",\n  \"ciudad\": \"Buenaventura\",\n  \"telefono\": \"3154442211\",\n  \"tipo\": \"distribuidor\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{token_comercial}}",
+                  "type": "string"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Limpieza: eliminar el registro del caso 18",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Código 204', () => pm.response.to.have.status(204));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": "{{baseUrl}}/clientes/{{idRol}}",
+            "description": "Deja la base como estaba. Esperado: 204.",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{token_comercial}}",
+                  "type": "string"
+                }
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "3 · Relaciones: lo que me consulta ms-pedidos",
+      "description": "ms-pedidos llama a este servicio con estas dos peticiones. Ejecútelas y mire la terminal de este microservicio.",
+      "item": [
+        {
+          "name": "Validación: GET /clientes/1 (existe)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Código 200', () => pm.response.to.have.status(200));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "{{baseUrl}}/clientes/1",
+            "description": "Así valida ms-pedidos que la referencia exista. Esperado: 200."
+          }
+        },
+        {
+          "name": "Validación: GET /clientes/99999 (no existe)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Código 404', () => pm.response.to.have.status(404));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "{{baseUrl}}/clientes/99999",
+            "description": "ms-pedidos lo convierte en 400. Esperado: 404."
+          }
+        },
+        {
+          "name": "Composición: GET /clientes?ids=1,2,3",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Código 200', () => pm.response.to.have.status(200));",
+                  "pm.test('Tres registros', () => pm.expect(pm.response.json()).to.have.lengthOf(3));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "{{baseUrl}}/clientes?ids=1,2,3",
+            "description": "Una sola petición para todo un listado. Esperado: 200 con 3 registros."
+          }
+        },
+        {
+          "name": "?ids= inválido",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Código 400', () => pm.response.to.have.status(400));",
+                  "pm.test('Trae mensaje de error', () => pm.expect(pm.response.json()).to.have.property('error'));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "{{baseUrl}}/clientes?ids=1,abc",
+            "description": "Esperado: 400."
+          }
+        }
+      ]
+    }
+  ]
+}

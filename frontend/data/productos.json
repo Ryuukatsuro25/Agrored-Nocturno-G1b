@@ -1,0 +1,14 @@
+[
+  {"id": 1, "nombre": "Mango Tommy", "categoria": "fruta", "unidad": "kg", "precio": 6500},
+  {"id": 2, "nombre": "Tomate chonto", "categoria": "hortaliza", "unidad": "kg", "precio": 3200},
+  {"id": 3, "nombre": "Pulpa de maracuyá", "categoria": "procesado", "unidad": "caja", "precio": 48000},
+  {"id": 4, "nombre": "Aguacate Hass", "categoria": "fruta", "unidad": "kg", "precio": 9800},
+  {"id": 5, "nombre": "Cebolla cabezona", "categoria": "hortaliza", "unidad": "kg", "precio": 2700},
+  {"id": 6, "nombre": "Mermelada de mora", "categoria": "procesado", "unidad": "caja", "precio": 62000},
+  {"id": 7, "nombre": "Piña oro miel", "categoria": "fruta", "unidad": "kg", "precio": 4100},
+  {"id": 8, "nombre": "Zanahoria", "categoria": "hortaliza", "unidad": "kg", "precio": 1900},
+  {"id": 9, "nombre": "Pulpa de guanábana", "categoria": "procesado", "unidad": "caja", "precio": 55000},
+  {"id": 10, "nombre": "Lulo", "categoria": "fruta", "unidad": "kg", "precio": 5600},
+  {"id": 11, "nombre": "Pimentón rojo", "categoria": "hortaliza", "unidad": "kg", "precio": 5200},
+  {"id": 12, "nombre": "Bocadillo veleño", "categoria": "procesado", "unidad": "caja", "precio": 38000}
+]

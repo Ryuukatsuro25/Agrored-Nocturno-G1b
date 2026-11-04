@@ -1,0 +1,74 @@
+/* =====================================================================
+   VARIABLES DE DISEÑO (colores, tipografía, espacios, sombras)
+   Cambiar la identidad visual = cambiar este archivo.
+   ===================================================================== */
+:root {
+  /* Marca AgroRed: verde campo + acento mango */
+  --c-primario: #1f6f43;
+  --c-primario-hover: #185a36;
+  --c-primario-suave: #e6f2ea;
+  --c-acento: #e08a1e;
+  --c-acento-suave: #fdf0de;
+
+  /* Estados */
+  --c-exito: #16834a;   --c-exito-suave: #e3f5ea;
+  --c-info: #2563b8;    --c-info-suave: #e5eefb;
+  --c-aviso: #b26a00;   --c-aviso-suave: #fdf3dc;
+  --c-peligro: #c4322b; --c-peligro-suave: #fde8e7;
+
+  /* Superficies y texto */
+  --c-fondo: #f5f6f2;
+  --c-superficie: #ffffff;
+  --c-superficie-2: #f9faf7;
+  --c-borde: #e3e6de;
+  --c-borde-fuerte: #cdd2c6;
+  --c-texto: #1c231d;
+  --c-texto-2: #4c574e;
+  --c-texto-3: #7a857c;
+  --c-lateral: #12301f;
+  --c-lateral-texto: #c9dccf;
+
+  /* Tipografía del sistema: carga instantánea, sin depender de internet en la VM */
+  --fuente: "Segoe UI", system-ui, -apple-system, Roboto, "Helvetica Neue", Arial, sans-serif;
+  --fuente-mono: ui-monospace, "Cascadia Code", Consolas, monospace;
+  --t-xs: .75rem; --t-sm: .8125rem; --t-base: .9375rem; --t-lg: 1.125rem; --t-xl: 1.5rem; --t-2xl: 1.875rem;
+
+  --radio-sm: 6px; --radio: 10px; --radio-lg: 14px; --radio-pill: 999px;
+  --sombra-sm: 0 1px 2px rgba(18, 48, 31, .06);
+  --sombra: 0 1px 3px rgba(18, 48, 31, .08), 0 4px 12px rgba(18, 48, 31, .05);
+  --sombra-lg: 0 12px 40px rgba(18, 48, 31, .18);
+  --enfoque: 0 0 0 3px rgba(31, 111, 67, .28);
+
+  --ancho-lateral: 248px;
+  --alto-superior: 64px;
+  --transicion: .18s ease;
+  color-scheme: light;
+}
+
+/* Tema oscuro (botón luna/sol de la barra superior) */
+:root[data-tema="oscuro"] {
+  --c-primario: #3fae6e;
+  --c-primario-hover: #5cc287;
+  --c-primario-suave: #173826;
+  --c-acento: #f0a540;
+  --c-acento-suave: #3a2a12;
+  --c-exito: #4cc581;   --c-exito-suave: #15342a;
+  --c-info: #6ea3f0;    --c-info-suave: #172a45;
+  --c-aviso: #f0b450;   --c-aviso-suave: #3a2c12;
+  --c-peligro: #f07a73; --c-peligro-suave: #3f1a19;
+  --c-fondo: #0f1511;
+  --c-superficie: #171f19;
+  --c-superficie-2: #1c251f;
+  --c-borde: #29342c;
+  --c-borde-fuerte: #3a473d;
+  --c-texto: #e7ece8;
+  --c-texto-2: #b3bdb5;
+  --c-texto-3: #869188;
+  --c-lateral: #0b120d;
+  --c-lateral-texto: #aebfb3;
+  --sombra-sm: 0 1px 2px rgba(0, 0, 0, .4);
+  --sombra: 0 1px 3px rgba(0, 0, 0, .4), 0 4px 12px rgba(0, 0, 0, .25);
+  --sombra-lg: 0 12px 40px rgba(0, 0, 0, .55);
+  --enfoque: 0 0 0 3px rgba(63, 174, 110, .35);
+  color-scheme: dark;
+}

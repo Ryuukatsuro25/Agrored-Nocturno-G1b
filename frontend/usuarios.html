@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Usuarios · AgroRed S.A.S.</title>
+  <meta name="description" content="AgroRed S.A.S. · Gestión de productos, clientes y pedidos">
+  <link rel="icon" href="assets/img/logo.svg" type="image/svg+xml">
+  <!-- Aplica el tema guardado antes de pintar (evita el parpadeo claro/oscuro) -->
+  <script>try { document.documentElement.dataset.tema = localStorage.getItem('agrored.tema') || 'claro'; } catch (e) {}</script>
+  <link rel="stylesheet" href="assets/css/variables.css">
+  <link rel="stylesheet" href="assets/css/base.css">
+  <link rel="stylesheet" href="assets/css/componentes.css">
+  <link rel="stylesheet" href="assets/css/layout.css">
+  <script type="module" src="js/pages/usuarios.js"></script>
+</head>
+<!-- Pantalla de Usuarios · Responsable: Grupo (ms-usuarios de la docente) -->
+<body>
+  <a class="saltar" href="#contenido">Saltar al contenido</a>
+  <div class="app">
+    <div class="principal">
+      <main class="contenido" id="contenido">
+        <header class="encabezado-pagina">
+          <div>
+            <h1>Usuarios</h1>
+            <p>Personas que inician sesión en la aplicación y su rol. Solo para administradores.</p>
+          </div>
+          <button type="button" class="boton boton--primario" id="btn-nuevo" hidden></button>
+        </header>
+        <div id="crud"></div>
+      </main>
+    </div>
+  </div>
+</body>
+</html>

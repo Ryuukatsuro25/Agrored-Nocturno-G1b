@@ -1,0 +1,64 @@
+/* =====================================================================
+   PÁGINA DE INICIO DE SESIÓN
+   ===================================================================== */
+.pagina-acceso { min-height: 100vh; }
+.acceso { display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr); min-height: 100vh; }
+
+/* Panel de marca (izquierda) */
+.acceso__marca {
+  position: relative; overflow: hidden; display: flex; flex-direction: column; justify-content: space-between;
+  padding: 44px 56px; color: #fff;
+  background:
+    radial-gradient(circle at 85% 15%, rgba(224, 138, 30, .35), transparent 40%),
+    radial-gradient(circle at 10% 90%, rgba(111, 220, 157, .25), transparent 45%),
+    linear-gradient(150deg, #154d2f 0%, #12301f 60%, #0c2116 100%);
+}
+.acceso__marca::after {   /* textura de surcos de cultivo */
+  content: ""; position: absolute; inset: 0; opacity: .07; pointer-events: none;
+  background: repeating-linear-gradient(-35deg, #fff 0 2px, transparent 2px 26px);
+}
+.acceso__logo { position: relative; display: flex; align-items: center; gap: 12px; font-size: 1.3rem; font-weight: 700; }
+.acceso__logo small { font-weight: 500; opacity: .7; }
+.acceso__mensaje { position: relative; max-width: 460px; }
+.acceso__mensaje h2 { font-size: 2.4rem; line-height: 1.12; letter-spacing: -.03em; font-weight: 700; }
+.acceso__mensaje p { margin-top: 16px; font-size: 1.05rem; color: #cfe3d5; }
+.acceso__puntos { list-style: none; padding: 0; margin: 28px 0 0; display: grid; gap: 12px; color: #e3efe6; }
+.acceso__puntos li { display: flex; align-items: center; gap: 12px; }
+.acceso__puntos span { width: 22px; height: 22px; border-radius: 50%; flex: none; background: rgba(111, 220, 157, .2); box-shadow: inset 0 0 0 6px rgba(111, 220, 157, .55); }
+.acceso__pie { position: relative; font-size: var(--t-sm); color: #9fbfaa; }
+
+/* Panel del formulario (derecha) */
+.acceso__panel { display: grid; place-items: center; padding: 32px 24px; background: var(--c-fondo); }
+.acceso__tarjeta { width: min(420px, 100%); }
+.acceso__logo-movil { display: none; margin-bottom: 20px; }
+.acceso__tarjeta h1 { font-size: 1.75rem; }
+.acceso__sub { color: var(--c-texto-2); margin: 6px 0 24px !important; }
+.acceso__nota { display: flex; gap: 10px; padding: 12px 14px; border-radius: var(--radio); background: var(--c-info-suave); color: var(--c-info); font-size: var(--t-sm); margin-bottom: 18px !important; }
+.acceso__nota .icono { margin-top: 2px; }
+
+/* Selección de rol (modo demostración) */
+.roles { display: grid; gap: 10px; }
+.roles .boton { margin-top: 8px; }
+.rol {
+  position: relative; display: flex; align-items: center; gap: 14px; padding: 14px 16px; cursor: pointer;
+  border: 1.5px solid var(--c-borde-fuerte); border-radius: var(--radio-lg); background: var(--c-superficie);
+  transition: border-color var(--transicion), background var(--transicion), box-shadow var(--transicion);
+}
+.rol:hover { border-color: var(--c-texto-3); }
+.rol input { position: absolute; opacity: 0; }
+.rol__icono { display: grid; place-items: center; width: 42px; height: 42px; border-radius: 12px; background: var(--c-superficie-2); color: var(--c-texto-2); flex: none; }
+.rol__texto { display: grid; flex: 1; line-height: 1.35; }
+.rol__texto small { color: var(--c-texto-3); }
+.rol__marca { display: grid; place-items: center; width: 22px; height: 22px; border-radius: 50%; border: 1.5px solid var(--c-borde-fuerte); color: transparent; flex: none; }
+.rol__marca .icono { width: 14px; height: 14px; }
+.rol:has(input:checked) { border-color: var(--c-primario); background: var(--c-primario-suave); box-shadow: var(--enfoque); }
+.rol:has(input:checked) .rol__icono { background: var(--c-primario); color: #fff; }
+.rol:has(input:checked) .rol__marca { background: var(--c-primario); border-color: var(--c-primario); color: #fff; }
+.rol:has(input:focus-visible) { box-shadow: var(--enfoque); }
+
+@media (max-width: 900px) {
+  .acceso { grid-template-columns: 1fr; }
+  .acceso__marca { display: none; }
+  .acceso__logo-movil { display: block; }
+  .acceso__panel { align-items: start; padding-top: 48px; }
+}

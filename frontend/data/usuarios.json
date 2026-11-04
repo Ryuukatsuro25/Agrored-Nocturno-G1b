@@ -1,0 +1,7 @@
+[
+  {"id": 1, "nombre": "Administrador General", "email": "admin@empresa.com", "rol": "administrador", "activo": true},
+  {"id": 2, "nombre": "Comercial de Prueba", "email": "comercial@agrored.com", "rol": "comercial", "activo": true},
+  {"id": 3, "nombre": "Producción de Prueba", "email": "produccion@agrored.com", "rol": "produccion", "activo": true},
+  {"id": 4, "nombre": "Laura Gómez", "email": "laura.gomez@agrored.com", "rol": "comercial", "activo": true},
+  {"id": 5, "nombre": "Andrés Castillo", "email": "andres.castillo@agrored.com", "rol": "produccion", "activo": false}
+]

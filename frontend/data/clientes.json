@@ -1,0 +1,11 @@
+[
+  {"id": 1, "nombre": "Distribuidora El Valle", "nit": "900123456-7", "ciudad": "Cali", "telefono": "6023334455", "tipo": "distribuidor"},
+  {"id": 2, "nombre": "Fruver La Sabana", "nit": "901234567-1", "ciudad": "Bogotá", "telefono": "6017654321", "tipo": "comercio"},
+  {"id": 3, "nombre": "Supermercado Los Andes", "nit": "800987654-3", "ciudad": "Medellín", "telefono": "6045556677", "tipo": "comercio"},
+  {"id": 4, "nombre": "Comercializadora del Pacífico", "nit": "901555222-4", "ciudad": "Buenaventura", "telefono": "3154442211", "tipo": "distribuidor"},
+  {"id": 5, "nombre": "Mercados La Cosecha", "nit": "830456789-2", "ciudad": "Bogotá", "telefono": "6013219876", "tipo": "comercio"},
+  {"id": 6, "nombre": "Agroinsumos del Cauca", "nit": "900765432-8", "ciudad": "Popayán", "telefono": "6028241122", "tipo": "distribuidor"},
+  {"id": 7, "nombre": "Tienda Natural Verde", "nit": "901888111-5", "ciudad": "Cali", "telefono": "3127778899", "tipo": "comercio"},
+  {"id": 8, "nombre": "Distribuciones Andinas", "nit": "860111222-9", "ciudad": "Bogotá", "telefono": "6014447788", "tipo": "distribuidor"},
+  {"id": 9, "nombre": "Frutería El Paraíso", "nit": "901222333-0", "ciudad": "Palmira", "telefono": "3001112233", "tipo": "comercio"}
+]
